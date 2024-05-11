@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text2Image</title>
+</head>
+<body>
+    <h1>TEXT TO IMAGE</h1>
+    <textarea name="img-input" id="img-input"></textarea>
+    <button onclick="handleSubmit()">Submit</button>
+
+    <div id="response-container">
+        
+    </div>
+
+    <script>
+        async function handleSubmit(){
+    let inputText = document.getElementById('img-input').value;
+    let res = await fetch("https://text2image.sahilgullihar-cloudflare.workers.dev/?id="+inputText);
+    let imageData = await res.blob();
+
+    // Convert the binary image data to a URL
+    let imageURL = URL.createObjectURL(imageData);
+
+    // Display the image
+    document.getElementById('response-container').innerHTML = `
+        <img src="${imageURL}" alt="Generated Image">
+    `;
+}
+
+
+
+    </script>
+</body>
+</html>
